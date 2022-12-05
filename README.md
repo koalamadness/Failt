@@ -5,8 +5,7 @@ En este tutorial se muestra cómo desplegar una simple aplicación de buscar inf
 
 ## Flow General
 ![Flow](https://user-images.githubusercontent.com/22554053/205640395-ea5ef369-8474-4b89-a260-4e3a98df42ff.PNG)
-
-https://user-images.githubusercontent.com/22554053/205640749-c52b7c1d-65a8-496f-b4ba-d73ce05711f0.png
+![Captura](https://user-images.githubusercontent.com/22554053/205641133-d7084781-3c96-4d59-9f84-7c90016a8f12.PNG)
 
 1. El usuario accede a la aplicación a través de la interfaz web. El usuario mete un nombre de película en el buscador.
 2. La aplicación React is renderizada al usuario al acceder.
