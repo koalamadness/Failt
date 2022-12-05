@@ -4,6 +4,7 @@
 En este tutorial se muestra cómo desplegar una simple aplicación de buscar información acerca de películas como sus actores, título, directores, duración, fecha de estreno y demás. Se explicará la arquitectura y componentes de K8s utilizados para esta entrega. Al final viene una presentación con vídeos de prueba y despliegue. 
 
 ## Flow General
+![Flow](https://user-images.githubusercontent.com/22554053/205640395-ea5ef369-8474-4b89-a260-4e3a98df42ff.PNG)
 
 1. El usuario accede a la aplicación a través de la interfaz web. El usuario mete un nombre de película en el buscador.
 2. La aplicación React is renderizada al usuario al acceder.
