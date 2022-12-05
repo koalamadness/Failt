@@ -1,72 +1,37 @@
-[![Build Status](https://travis-ci.org/IBM/deploy-react-kubernetes.svg?branch=master)](https://travis-ci.org/IBM/deploy-react-kubernetes)
 
-# Deploy a React application on Kubernetes
+# Desplegar una aplicación localmente, en Docker y en Kubernetes
 
-Do you have a front end application that contains large amounts of duplication, handles complex states, and manages large amounts of data?
+En este tutorial se muestra cómo desplegar una simple aplicación de buscar información acerca de películas como sus actores, título, directores, duración, fecha de estreno y demás. Se explicará la arquitectura y componentes de K8s utilizados para esta entrega. Al final viene una presentación con vídeos de prueba y despliegue. 
 
-React and Redux is the perfect Javascript library if your application is similar to the one described above. React provides a component based structure for everything included in an application and allows abstraction if needed to limit duplication. With Redux, it handles all of the state and can easily manage data in an application.
+## Flow General
 
-Once an application has been developed, it needs to be deployed for the rest of the world to see. There are many choices when looking for the right solution to manage and deploy your application. It can often be overwhelming when you're trying to pick the right solution.
+1. El usuario accede a la aplicación a través de la interfaz web. El usuario mete un nombre de película en el buscador.
+2. La aplicación React is renderizada al usuario al acceder.
+3. La aplicación llama a la API OMBb y recibe un objeto JSON de la respuesta para mostrar al usuario.
 
-If you're looking for a deployment tool that can provide automation, scalability and management of a deployed application, Kubernetes is the tool for you!
+# Pasos
 
-An application must be packaged into a container to deploy on Kubernetes. Docker is an open source tool that is used to package the application into a container. The container is then deployed on Kubernetes for public access. Once the application is deployed, Kubernetes handles the management, scalability and automation of the deployed application.
+## Requisitos previos: 
+1. Se debe obtener una clave de API de la API de OMDb para obtener una respuesta de la API. Se inserta su clave de API en '/src/actions/index.js' en la línea 42.
 
-In this Code Pattern, we will deploy a React application using Kubernetes.
-
-This repository uses the React Javascript library alongside Redux to build out the front end of the application. The OMDb API is used to get movie information based on user input. Redux handles the data between the application and the API, as well as the state between components. Docker is used to package the application and Kubernetes is used to deploy the container.
-
-When the reader has completed this Code Pattern, they will understand how to:
-* Containerize a React application using Docker
-* Deploy and manage an application using Kubernetes
-
-## Flow
-
-![Flow](https://media.github.ibm.com/user/1650/files/b0c988dc-31aa-11e8-867b-9558d5610cd7)
-
-1. The user accesses the application through the web interface. The user enters a movie title into the input.
-2. The React application is rendered to the user on access.
-3. The application calls the OMDb API and receives a JSON object of the response to show the user.
-
-## Included components
-* IBM Cloud Container Service: IBM Cloud Container Service manages highly available apps inside Docker containers and Kubernetes clusters on the IBM Cloud.
-* Kubernetes Cluster: Create and manage your own cloud infrastructure and use Kubernetes as your container orchestration engine.
-
-## Featured technologies
-* [Node.js](https://nodejs.org/en/): An open-source JavaScript run-time environment for executing server-side JavaScript code.
-* Cloud: Accessing computer and information technology resources through the Internet.
-* Container Orchestration: Automating the deployment, scaling and management of containerized applications.
-
-# Watch the video
-
-* [Demo on Youtube](https://youtu.be/1Lq9vW3LuH8)
-
-# Steps
-
-## Prerequisites
-1. You must get an API key from [OMDb API](https://www.omdbapi.com/) in order to get a response from the API. You will insert your API key in `/src/actions/index.js` on line 42
-[OMDb API](https://www.omdbapi.com/) by Brian Fitz is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
-
-2. Create an environment variable for your docker username
+2. Crear una variable de entorno para su nombre de usuario docker
 ```
-$ export docker_username="YOUR_DOCKER_USERNAME"
+$ export docker_username="TU_USUARIO_DOCKER"
 ```
 
-## Run locally
-1. [Clone the repo](#1-clone-the-repo)
-2. [Run the application](#2-run-the-application)
+## Correr localmente
 
 ### 1. Clone the repo
 
-Clone the repo locally. In a terminal, run:
+Se clona el repositorio localmente. En una terminal, ejecutar:
 
 ```
-$ git clone https://github.com/IBM/deploy-react-kubernetes
+$ git clone https://github.com/koalamadness/ProyectoTaF2022B
 ```
 
-### 2. Run the application
-1. Install [Node.js](https://nodejs.org/en/)
-2. Run the following commands in a terminal:
+### 2. Correr la aplicación
+1. Instalar Node.js
+2. Ejecutar los siguientes comandos en una terminal:
 
 ```
 $ npm install
@@ -76,153 +41,65 @@ $ npm run build-css
 $ npm run start
 ```
 
-Verify app is running and working correctly.
+## Correr la aplicación mediante Docker
 
-## Run the application using Docker
-1. [Build the image](#1-build-the-image)
-2. [Run the image](#2-run-the-image)
 
-## Prerequisites:
-1. [Create Docker account](https://cloud.docker.com/)
+## Requisitos previos:
+1. Crear una cuenta Docker
 
-2. [Install Docker CLI](https://docs.docker.com/install/)
+2. Instalar Docker CLI
 
-3. [Retrieve and save your Docker user id](https://cloud.docker.com/)
+3. Recuperar y guardar el ID de usuario de Docker
 
-### 1. Build the image
+### 1. Construir la imagen
 
-In a terminal, run:
+En una terminal, ejecutar:
 ```
-$ docker build -t $docker_username/deploy-react-kubernetes .
+$ docker build -t $docker_username/koalamadness/ProyectoTaF2022B .
 ```
 
-Your image should be listed by running:
+Se puede revisar que está la imagen con:
 
 ```
 $ docker images
 ```
 
-### 2. Run the image
+### 2. Correr la imagen 
 
-In a terminal, run:
-
-```
-$ docker run -p 3000:3000 -d $docker_username/deploy-react-kubernetes
-```
-
-You can now access the application at http://localhost:3000
-
-## Run the application on Kubernetes
-
-1. [Build image.](#1-build-image)
-2. [Deploy the application](#2-deploy-the-application)
-
-## Prerequisites
-1. [Create an account with IBM Cloud](https://cloud.ibm.com/registration/)
-
-2. [Install IBM Cloud CLI](https://cloud.ibm.com/docs/cli/reference/bluemix_cli/get_started.html#getting-started)
-
-3. Log into your IBM Cloud account
-```
-ibmcloud login
-```
-
-If you have a federated ID, use ibmcloud login --sso to log in to the IBM Cloud CLI.
-
-4. Install the Container Registry plug-in.
-```
-ibmcloud plugin install container-registry -r Bluemix
-```
-
-5. Install the Container Service plug-in.
-```
-ibmcloud plugin install IBM-Containers -r Bluemix
-```
-
-6. [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl)
-
-7. Create cluster
-```
-ibmcloud cs cluster-create --name YOUR_CLUSTER_NAME
-```
-
-8. Configure Kubernetes cluster
-```
-$ ibmcloud cs cluster-config YOUR_CLUSTER_NAME
-```
-
-Copy and paste response in CLI
-
-9. Choose a name for your first namespace, and create that namespace. Use this namespace for the rest of the Quick Start.
-```
-$ ibmcloud cr namespace-add YOUR_NAMESPACE
-```
-
-
-### 1. Build image
-
-Build image in the IBM Container Registry:
-```
-$ ibmcloud cr build -t registry.<ibm_cloud_region>.bluemix.net/<your_namespace>/deploy-react-kubernetes .
-```
-
-### 2. Deploy the application
+En una terminal, ejecutar:
 
 ```
-$ kubectl run deploy-react-kubernetes-deployment --image=registry.<ibm_cloud_region>.bluemix.net/<your_namespace>/deploy-react-kubernetes
+$ docker run -p 3000:3000 -d $docker_username/koalamadness/ProyectoTaF2022B
 ```
 
-To check how many pods are running on Kubernetes run the command:
+Se puede acceder ahora con http://localhost:3000
+
+## Correr la aplicación en Kubernetes
+
+## Requisitos previos:
+1. Instalar kubectl
+
+2. Acceder a tu cuenta docker
+
+### 1. Pushear imagen a cuenta de Docker Hub
+
+De esta manera el archivo yaml del Deployment puede acceder a la imagen, en la terminal correr:
+
+```
+$ docker push koalamadness/ProyectoTaF2022B
+```
+### 2. Aplicar el arhivo yaml
+
+Correr el siguiente comando en terminal:
+
+```
+kubectl apply -f deployment.yaml
+```
+
+Para revisar cuántos pods están corriendo:
 ```
 kubectl get pods
 ```
+## Presentación
 
-Expose the app to the web by setting the port. Run the command:
 
-```
-$ kubectl expose deployment/deploy-react-kubernetes-deployment —-port=3000 —-type=NodePort
-```
-
-* To access your application. You would need the public IP address of your cluster and NodePort of the service.
-
-```
-# For clusters provisioned with IBM Cloud
-$ ibmcloud cs workers YOUR_CLUSTER_NAME
-```
-
-```
-# For details on a specific Kubernetes service
-$ kubectl describe service deploy-react-kubernetes-service
-```
-
-You can now access the application at http://IP_ADDRESS:NODE_PORT
-
-## Run the application on Kubernetes with a yaml file
-
-Note: Follow the prerequisites in 'Run the application on Kubernetes section' before executing command below.
-
-```
-kubectl create -f deployment.yaml
-```
-
-# Sample output
-
-<img width="1415" alt="screen shot 2017-03-13 at 6 14 10 pm" src="https://cloud.githubusercontent.com/assets/18426780/23879083/fa0df756-0818-11e7-8569-469367b84280.png">
-
-# Links
-* [Demo on Youtube](https://youtu.be/1Lq9vW3LuH8)
-* [Blog post](https://medium.com/@rizchel.a.dayao/my-journey-to-deploying-my-first-react-application-with-kubernetes-95e6d25f434d)
-* [React](https://reactjs.org/)
-* [Redux](https://redux.js.org/basics/usage-with-react)
-* [Docker](https://www.docker.com/)
-* [Kubernetes](https://kubernetes.io/)
-
-# Learn more
-
-* **Container Orchestration Code Patterns**: Enjoyed this Code Pattern? Check out our other [Container Orchestration Code Patterns](https://developer.ibm.com/solutions/container-orchestration-and-deployment/).
-* **Kubernetes on IBM Cloud**: Deliver your apps with the combined power of [Kubernetes and Docker on IBM Cloud](https://www.ibm.com/cloud/container-service)
-
-# License
-This code pattern is licensed under the Apache Software License, Version 2.  Separate third party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
-
-[Apache Software License (ASL) FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
