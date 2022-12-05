@@ -102,4 +102,4 @@ kubectl get pods
 ```
 ## Presentación
 
-
+https://docs.google.com/presentation/d/1325yoQ2Haffzx0fGLw-kLgBhacoX9xw-PRf_wqctceg/edit?usp=sharing
