@@ -12,6 +12,7 @@ En este tutorial se muestra cómo desplegar una simple aplicación de buscar inf
 3. La aplicación llama a la API OMBb y recibe un objeto JSON de la respuesta para mostrar al usuario.
 
 # Pasos
+![Captura2](https://user-images.githubusercontent.com/22554053/205641583-fd591575-dc00-4b02-a002-9c1ffaf5a3bf.PNG)
 
 ## Requisitos previos: 
 1. Se debe obtener una clave de API de la API de OMDb para obtener una respuesta de la API. Se inserta su clave de API en '/src/actions/index.js' en la línea 42.
