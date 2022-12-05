@@ -6,6 +6,8 @@ En este tutorial se muestra cómo desplegar una simple aplicación de buscar inf
 ## Flow General
 ![Flow](https://user-images.githubusercontent.com/22554053/205640395-ea5ef369-8474-4b89-a260-4e3a98df42ff.PNG)
 
+https://user-images.githubusercontent.com/22554053/205640749-c52b7c1d-65a8-496f-b4ba-d73ce05711f0.png
+
 1. El usuario accede a la aplicación a través de la interfaz web. El usuario mete un nombre de película en el buscador.
 2. La aplicación React is renderizada al usuario al acceder.
 3. La aplicación llama a la API OMBb y recibe un objeto JSON de la respuesta para mostrar al usuario.
