@@ -106,3 +106,9 @@ kubectl get pods
 ## Presentación
 
 https://docs.google.com/presentation/d/1325yoQ2Haffzx0fGLw-kLgBhacoX9xw-PRf_wqctceg/edit?usp=sharing
+
+## Videos
+
+### Parte 1: https://www.loom.com/share/3cdd9f648c244348b02b9020ad6baa77
+### Parte 2: https://www.loom.com/share/a24ea1bdf7a4426a8f76b5cd6b71bb55
+
